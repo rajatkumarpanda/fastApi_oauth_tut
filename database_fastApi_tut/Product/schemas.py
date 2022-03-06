@@ -1,4 +1,18 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from typing import List, Optional
+
+class Seller(BaseModel):
+    username: str
+    email: str
+    password: str
+
+
+class DisplaySeller(BaseModel):
+    username: str
+    email: str
+
+    class Config:
+        orm_mode = True
 
 class Product(BaseModel):
     name: str
@@ -8,6 +22,9 @@ class Product(BaseModel):
 class DisplayProduct(BaseModel):
     name: str
     description: str
+    seller: Optional[List[DisplaySeller]] 
 
     class Config:
         orm_mode = True
+
+
