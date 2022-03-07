@@ -5,6 +5,7 @@ from ..database import get_db
 from ..import models
 from typing import List
 from ..import schemas as sh
+from Product.routers.login import get_current_user
 
 
 
@@ -31,7 +32,7 @@ def update(id, request: sh.Product, db: Session = Depends(get_db)):
     return {"Product Updated."}
     
 @router.get("/", response_model=List[sh.DisplayProduct])
-def products(db: Session = Depends(get_db)):
+def products(db: Session = Depends(get_db), current_user: sh.Seller = Depends(get_current_user)):
     products = db.query(models.Product).all()
     return products
 
